@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Random Movie Quote Generator</title>
+        <link rel="stylesheet" href="project.css">
+    </head>
+    
+    <header>
+        <h1 class = 'instructions'>Click the button below to generate a random movie quote!</h1>
+    </header>
+    <main>
+        <section id="function">
+            <div>
+                <input type="button" id="generate" value="Quote It!"
+            </div>
+            <div id="quoteInfo">
+            </div>
+        </section>
+        <script>
+            let quoteList = [];
+
+            const getRandQuote =  () => {
+                reset();
+
+                fetch('https://run.mocky.io/v3/e6a30cf1-7206-46e5-92ab-ce39dfef7785')
+                    .then(response => response.json())
+                    .then(quotes => {
+                    quoteList = quotes
+
+                    let rq = quoteList[Math.floor(Math.random() * quoteList.length)];
+                    
+                    let article = document.createElement('article');
+
+                    let quote1 = document.createElement('h3');
+                    quote1.textContent = rq.quote;
+
+                    let movie1 = document.createElement('h4');
+                    movie1.textContent = rq.movie;
+
+                    let year1 = document.createElement('h4');
+                    year1.textContent = rq.year;
+
+                    article.appendChild(quote1);
+                    movie1.appendChild(year1);
+                    article.appendChild(movie1);
+
+                    document.querySelector('#quoteInfo').appendChild(article);
+                        }
+                    )
+                }
+                
+
+                
+
+                               
+            
+
+            function reset() {
+                document.querySelector('#quoteInfo').innerHTML = '';
+            }
+
+            const displayQuote = (rq) => {
+                    rq.forEach(
+                        randQuote => {
+
+                            let article = document.createElement('article');
+
+                            let quote1 = document.createElement('h3');
+                            quote1.textContent = randQuote.quote;
+
+                            let movie1 = document.createElement('h4');
+                            movie1.textContent = randQuote.movie;
+
+                            let year1 = document.createElement('h4');
+                            year1.textContent = randQuote.year;
+
+                            article.appendChild(quote1);
+                            article.appendChild(movie1);
+                            article.appendChild(year1);
+
+                            document.querySelector('#quoteInfo').textContent(article);
+
+
+                        }
+                    )
+                }  
+            
+
+            document.querySelector('#generate').addEventListener('click', getRandQuote);
+        </script>
+    </main>
+
+</html>
